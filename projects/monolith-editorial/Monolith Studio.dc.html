@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <style>
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
+    body{background:#15171a;font-family:var(--font-mono);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    #smooth-content{position:relative;z-index:1;}
+    ::selection{background:#f4f2ee;color:#15171a;}
+    @keyframes yzyblink{0%,55%{opacity:1;}56%,100%{opacity:0.2;}}
+    @keyframes yzypulse{0%,100%{opacity:0.35;}50%{opacity:0.85;}}
+    .yzy-arrow:hover{opacity:0.45 !important;}
+    .yzy-row:hover{opacity:0.5 !important;}
+    .yzy-nav span{cursor:pointer;transition:opacity .15s;}
+    .yzy-nav span:hover{opacity:0.45;}
+  </style>
+</helmet>
+
+<template id="__bundler_thumbnail"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#16191c"/><rect x="42" y="24" width="16" height="52" fill="#e9e6df"/><text x="50" y="90" font-family="monospace" font-size="7" letter-spacing="1" fill="#e9e6df" text-anchor="middle">MONOLITH</text></svg></template>
+
+<div id="viz" style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(130% 105% at 50% 64%, #444a51 0%, #2b2f35 38%, #16191c 78%, #101214 100%);"></div>
+
+<nav class="yzy-nav" style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 26px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#fff;mix-blend-mode:difference;">
+  <div style="font-size:12px;letter-spacing:0.22em;cursor:pointer;">MONOLITH EDITORIAL</div>
+  <div style="display:flex;gap:30px;">
+    <span>INDEX</span><span>STUDIO</span><span>ARCHIVE</span>
+  </div>
+  <div style="cursor:pointer;">ENQUIRE</div>
+</nav>
+
+<div id="smooth-wrapper">
+  <div id="smooth-content">
+
+    <section id="hero" data-screen-label="HERO" style="position:relative;height:100vh;overflow:hidden;font-family:var(--font-mono);color:#f4f2ee;text-transform:uppercase;">
+
+      <div aria-hidden="true" style="position:absolute;left:24px;bottom:15%;z-index:2;font-size:clamp(64px,13vw,200px);line-height:0.82;letter-spacing:-0.02em;font-weight:300;opacity:0.07;pointer-events:none;white-space:nowrap;">{{ formName }}</div>
+
+      <div style="position:absolute;top:88px;left:26px;z-index:3;">
+        <div style="font-size:10px;letter-spacing:0.22em;opacity:0.5;">SPECIMEN</div>
+        <div style="font-size:14px;letter-spacing:0.16em;margin-top:7px;">{{ formCode }}</div>
+      </div>
+
+      <div style="position:absolute;top:88px;right:26px;z-index:3;text-align:right;">
+        <div style="font-size:10px;letter-spacing:0.22em;opacity:0.5;">STATUS</div>
+        <div style="font-size:12px;letter-spacing:0.16em;margin-top:7px;display:flex;align-items:center;justify-content:flex-end;gap:8px;">
+          <span style="width:5px;height:5px;background:#f4f2ee;display:inline-block;animation:yzyblink 1.4s steps(1) infinite;"></span>ACTIVE
+        </div>
+      </div>
+
+      <button class="yzy-arrow" onClick="{{ prev }}" aria-label="Previous form" style="position:absolute;left:24px;top:50%;transform:translateY(-50%);z-index:4;width:58px;height:58px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(244,242,238,0.28);color:#f4f2ee;font-family:var(--font-mono);font-size:22px;line-height:1;cursor:pointer;transition:opacity .15s;">‹</button>
+      <button class="yzy-arrow" onClick="{{ next }}" aria-label="Next form" style="position:absolute;right:24px;top:50%;transform:translateY(-50%);z-index:4;width:58px;height:58px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(244,242,238,0.28);color:#f4f2ee;font-family:var(--font-mono);font-size:22px;line-height:1;cursor:pointer;transition:opacity .15s;">›</button>
+
+      <div style="position:absolute;left:0;right:0;bottom:64px;z-index:3;display:flex;justify-content:center;">
+        <div style="font-size:10px;letter-spacing:0.28em;animation:yzypulse 2.4s ease-in-out infinite;">↓ &nbsp;SCROLL TO ORBIT</div>
+      </div>
+
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:16px 26px;border-top:1px solid rgba(244,242,238,0.16);font-size:11px;letter-spacing:0.16em;">
+        <div style="flex:1;">FORM &nbsp;/&nbsp; {{ formName }}</div>
+        <div style="flex:1;text-align:center;opacity:0.6;">{{ indexLabel }}</div>
+        <div style="flex:1;text-align:right;opacity:0.6;">AZ <span id="azreadout">000</span>°</div>
+      </div>
+
+    </section>
+
+    <section data-screen-label="SPEC" style="position:relative;z-index:1;background:var(--white);color:var(--black);font-family:var(--font-mono);text-transform:uppercase;padding:120px 26px 110px;">
+      <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+        <div>
+          <div style="font-size:10px;letter-spacing:0.24em;color:var(--grey-50);">SPECIMEN</div>
+          <div style="font-size:clamp(40px,6.4vw,78px);line-height:0.94;letter-spacing:-0.01em;font-weight:300;margin-top:18px;">{{ formCode }}</div>
+          <div style="margin-top:26px;font-size:12px;letter-spacing:0.14em;color:var(--grey-50);max-width:30ch;line-height:1.7;">CAST FROM A SINGLE POUR. ONE OBJECT, THREE RESOLVED STATES. NO TWO SURFACES REPEAT.</div>
+        </div>
+        <div>
+          <sc-for list="{{ specRows }}" as="row" hint-placeholder-count="5">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--grey-15);font-size:13px;letter-spacing:0.1em;">
+              <span style="color:var(--grey-50);">{{ row.label }}</span>
+              <span>{{ row.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section data-screen-label="INDEX" style="position:relative;z-index:1;background:var(--white);color:var(--black);font-family:var(--font-mono);text-transform:uppercase;padding:30px 26px 120px;">
+      <div style="max-width:1180px;margin:0 auto;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--black);padding-bottom:18px;">
+          <div style="font-size:clamp(26px,3.4vw,40px);font-weight:300;letter-spacing:0.02em;">THREE STATES</div>
+          <div style="font-size:10px;letter-spacing:0.24em;color:var(--grey-50);">SELECT TO TRANSFORM</div>
+        </div>
+        <sc-for list="{{ formsView }}" as="f" hint-placeholder-count="3">
+          <div class="yzy-row" onClick="{{ f.select }}" style="display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:24px;padding:28px 0;border-bottom:1px solid var(--grey-15);cursor:pointer;transition:opacity .15s;">
+            <span style="font-size:12px;letter-spacing:0.12em;color:var(--grey-50);">{{ f.code }}</span>
+            <span style="font-size:clamp(20px,2.6vw,30px);font-weight:300;letter-spacing:0.02em;">{{ f.name }}</span>
+            <span style="font-size:11px;letter-spacing:0.14em;">{{ f.status }}</span>
+          </div>
+        </sc-for>
+        <div style="margin-top:56px;display:flex;justify-content:center;">
+          <x-import component-from-global-scope="YEEZYDesignSystem_7ca9fc.Button" from="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/_ds_bundle.js" size="lg" onClick="{{ toTop }}" hint-size="auto,52px">↑ RETURN TO STUDIO</x-import>
+        </div>
+      </div>
+    </section>
+
+    <footer data-screen-label="FOOTER" style="position:relative;z-index:1;background:var(--black);color:var(--white);font-family:var(--font-mono);text-transform:uppercase;padding:90px 26px 44px;">
+      <div style="max-width:1180px;margin:0 auto;">
+        <div style="font-size:clamp(40px,9vw,128px);line-height:0.82;letter-spacing:0.04em;font-weight:300;">MONOLITH<br>EDITORIAL</div>
+        <div style="margin-top:64px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;font-size:10px;letter-spacing:0.2em;color:var(--grey-50);">
+          <span>MONOLITH EDITORIAL — MN SERIES</span>
+          <span>SCROLL · TOUCH · TRANSFORM</span>
+          <span>© 2026</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { idx: 0 };
+
+  forms = [
+    { name: 'MONOLITH', code: 'MN—01', status: 'ACTIVE',
+      rows: [['DIMENSIONS','62 × 150 × 46 CM'],['MASS','410 KG'],['MATERIAL','CAST STONE'],['FINISH','RAW / HEWN'],['EDITION','01 / 03']] },
+    { name: 'SPHERE', code: 'SP—02', status: 'STANDBY',
+      rows: [['DIMENSIONS','Ø 120 CM'],['MASS','384 KG'],['MATERIAL','CAST STONE'],['FINISH','GROUND'],['EDITION','02 / 03']] },
+    { name: 'SHARD', code: 'SH—03', status: 'STANDBY',
+      rows: [['DIMENSIONS','118 × 142 × 110 CM'],['MASS','396 KG'],['MATERIAL','CAST STONE'],['FINISH','FRACTURED'],['EDITION','03 / 03']] },
+  ];
+
+  renderVals() {
+    const i = this.state.idx;
+    const f = this.forms[i];
+    return {
+      formName: f.name,
+      formCode: f.code,
+      indexLabel: String(i + 1).padStart(2, '0') + ' / 03',
+      specRows: f.rows.map(r => ({ label: r[0], value: r[1] })),
+      formsView: this.forms.map((g, k) => ({
+        code: g.code, name: g.name,
+        status: k === i ? 'ACTIVE' : 'STANDBY',
+        select: () => this.selectForm(k),
+      })),
+      prev: () => this.cycle(-1),
+      next: () => this.cycle(1),
+      toTop: () => this.scrollTop(),
+    };
+  }
+
+  cycle(d) {
+    const n = (this.state.idx + d + this.forms.length) % this.forms.length;
+    this.setState({ idx: n });
+    this.morphTo(n);
+  }
+  selectForm(k) {
+    if (k !== this.state.idx) { this.setState({ idx: k }); this.morphTo(k); }
+    this.scrollTop();
+  }
+  scrollTop() {
+    const l = window.__vizLenis || this.lenis;
+    if (l) l.scrollTo(0, { duration: 1.1 });
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  componentDidMount() {
+    let tries = 0;
+    const wait = () => {
+      if (window.THREE && window.gsap && window.ScrollTrigger && window.Lenis) {
+        this.ensure();
+        // self-heal: if streaming/re-render replaces #viz, rebuild into the new node
+        if (!window.__vizEnsureTimer) {
+          window.__vizEnsureTimer = setInterval(() => this.ensure(), 700);
+        }
+      } else if (tries++ < 200) {
+        setTimeout(wait, 60);
+      } else { console.error('libs failed to load'); }
+    };
+    wait();
+  }
+
+  ensure() {
+    const mount = document.getElementById('viz');
+    if (!mount) return;
+    // already has a live canvas in the CURRENT node — nothing to do
+    if (window.__vizRenderer && window.__vizRenderer.domElement &&
+        window.__vizRenderer.domElement.parentNode === mount) return;
+    try { this.init(); } catch (e) { console.error('viz init error', e); }
+  }
+
+  componentWillUnmount() { /* setup is global + idempotent; leave the live scene running */ }
+
+  cleanupGlobal() {
+    if (window.__vizRaf) { cancelAnimationFrame(window.__vizRaf); window.__vizRaf = null; }
+    if (window.__vizMove) { window.removeEventListener('pointermove', window.__vizMove); window.__vizMove = null; }
+    if (window.__vizResize) { window.removeEventListener('resize', window.__vizResize); window.__vizResize = null; }
+    if (window.__vizTicker && window.gsap) { window.gsap.ticker.remove(window.__vizTicker); window.__vizTicker = null; }
+    if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(t => { try { t.kill(); } catch (e) {} });
+    if (window.__vizLenis) { try { window.__vizLenis.destroy(); } catch (e) {} window.__vizLenis = null; }
+    if (window.__vizRenderer) { try { window.__vizRenderer.dispose(); } catch (e) {} window.__vizRenderer = null; }
+    const mount = document.getElementById('viz');
+    if (mount) while (mount.firstChild) mount.removeChild(mount.firstChild);
+  }
+
+  // ---- pseudo 3D value noise ----
+  n3(x, y, z) {
+    return (Math.sin(x * 1.9 + y * 1.3 + z * 0.7)
+      + Math.sin(x * 0.7 - y * 2.1 + z * 1.7)
+      + Math.sin(x * 2.7 + y * 0.9 - z * 1.1)) / 3;
+  }
+
+  buildTargets(geo) {
+    const pos = geo.attributes.position;
+    const n = pos.count;
+    const mono = new Float32Array(n * 3);
+    const sphere = new Float32Array(n * 3);
+    const shard = new Float32Array(n * 3);
+    const v = new THREE.Vector3();
+    for (let k = 0; k < n; k++) {
+      const px = pos.getX(k), py = pos.getY(k), pz = pos.getZ(k);
+      v.set(px, py, pz).normalize();
+      const dx = v.x, dy = v.y, dz = v.z;
+      // --- monolith: real box slab + subtle radial trowel noise (edges stay crisp) ---
+      const rg = this.n3(px * 5, py * 4, pz * 5) * 0.018 + this.n3(px * 11, py * 9, pz * 12) * 0.008;
+      mono[k * 3] = px + dx * rg;
+      mono[k * 3 + 1] = py + dy * rg;
+      mono[k * 3 + 2] = pz + dz * rg;
+      // --- sphere ---
+      const sr = 1.06 + this.n3(dx * 4, dy * 4, dz * 4) * 0.05 + this.n3(dx * 9, dy * 9, dz * 9) * 0.022;
+      sphere[k * 3] = dx * sr;
+      sphere[k * 3 + 1] = dy * sr;
+      sphere[k * 3 + 2] = dz * sr;
+      // --- shard (jagged crystalline) ---
+      const jag = Math.abs(this.n3(dx * 3, dy * 3, dz * 3)) * 0.62
+        + Math.abs(this.n3(dx * 6.5, dy * 6.5, dz * 6.5)) * 0.3;
+      const shr = 0.66 + jag;
+      shard[k * 3] = dx * shr;
+      shard[k * 3 + 1] = dy * shr * 1.2;
+      shard[k * 3 + 2] = dz * shr;
+    }
+    return [mono, sphere, shard];
+  }
+
+  init() {
+    const THREE = window.THREE;
+    const mount = document.getElementById('viz');
+    if (!mount) return;
+    this.cleanupGlobal();
+    const W = window.innerWidth, H = window.innerHeight;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(W, H);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.12;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    mount.appendChild(renderer.domElement);
+    renderer.domElement.style.display = 'block';
+    this.renderer = renderer;
+    window.__vizRenderer = renderer;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x15171a, 0.05);
+
+    const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
+    this.camera = camera;
+    window.__vizCam = camera;
+    this.azStart = 0.42; this.azRange = Math.PI * 1.72;
+    this.updateCam(0);
+
+    // geometry + morph
+    const geo = new THREE.BoxGeometry(1.12, 3.48, 0.84, 26, 78, 20);
+    const targets = this.buildTargets(geo);
+    this.geo = geo; this.targets = targets;
+    window.__vizGeo = geo; window.__vizTargets = targets;
+    const pa = geo.attributes.position;
+    for (let k = 0; k < pa.array.length; k++) pa.array[k] = targets[0][k];
+    pa.needsUpdate = true;
+    geo.computeVertexNormals();
+
+    const mat = new THREE.MeshStandardMaterial({
+      color: 0xe9e6df, roughness: 0.96, metalness: 0.0, flatShading: true,
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.castShadow = true; mesh.receiveShadow = false;
+    const group = new THREE.Group();
+    group.add(mesh);
+    scene.add(group);
+    this.group = group; this.mesh = mesh;
+
+    // floor
+    const floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(60, 60),
+      new THREE.MeshStandardMaterial({ color: 0x22262b, roughness: 1, metalness: 0 })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -1.5;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    // lights — dark studio, one dramatic key
+    scene.add(new THREE.AmbientLight(0x3a4048, 0.55));
+    const fill = new THREE.DirectionalLight(0x8fa6c0, 0.35);
+    fill.position.set(6, 3, -4);
+    scene.add(fill);
+    const key = new THREE.SpotLight(0xfff4e6, 7.5, 0, 0.62, 0.62, 1.1);
+    key.position.set(-5.2, 9, 4.5);
+    key.target.position.set(0, -0.2, 0);
+    key.castShadow = true;
+    key.shadow.mapSize.set(2048, 2048);
+    key.shadow.camera.near = 1; key.shadow.camera.far = 26;
+    key.shadow.bias = -0.0004; key.shadow.radius = 6;
+    scene.add(key); scene.add(key.target);
+    const rim = new THREE.SpotLight(0xc9d6e6, 2.4, 0, 0.7, 0.8, 1.2);
+    rim.position.set(6, 5, -5);
+    rim.target.position.set(0, 0, 0);
+    scene.add(rim); scene.add(rim.target);
+
+    // pointer parallax
+    this.ptr = { x: 0, y: 0, tx: 0, ty: 0 };
+    this._onMove = (e) => {
+      const cx = (e.touches ? e.touches[0].clientX : e.clientX);
+      const cy = (e.touches ? e.touches[0].clientY : e.clientY);
+      this.ptr.tx = (cx / window.innerWidth - 0.5) * 2;
+      this.ptr.ty = (cy / window.innerHeight - 0.5) * 2;
+    };
+    window.addEventListener('pointermove', this._onMove);
+    window.__vizMove = this._onMove;
+
+    this._onResize = () => {
+      const w = window.innerWidth, h = window.innerHeight;
+      camera.aspect = w / h; camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    };
+    window.addEventListener('resize', this._onResize);
+    window.__vizResize = this._onResize;
+
+    // GSAP ScrollTrigger + Lenis smooth scroll + pin + orbit
+    const gsap = window.gsap;
+    gsap.registerPlugin(window.ScrollTrigger);
+    const lenis = new window.Lenis({ lerp: 0.085, wheelMultiplier: 1, smoothWheel: true });
+    this.lenis = lenis;
+    window.__vizLenis = lenis;
+    lenis.on('scroll', window.ScrollTrigger.update);
+    this._tickerFn = (time) => { lenis.raf(time * 1000); };
+    window.__vizTicker = this._tickerFn;
+    gsap.ticker.add(this._tickerFn);
+    gsap.ticker.lagSmoothing(0);
+    this.st = window.ScrollTrigger.create({
+      trigger: '#hero', start: 'top top', end: '+=2600',
+      pin: true, scrub: 1,
+      onUpdate: (self) => this.updateCam(self.progress),
+    });
+    window.ScrollTrigger.refresh();
+
+
+    // render loop
+    const clock = new THREE.Clock();
+    const animate = () => {
+      this._raf = requestAnimationFrame(animate);
+      window.__vizRaf = this._raf;
+      const t = clock.getElapsedTime();
+      this.ptr.x += (this.ptr.tx - this.ptr.x) * 0.05;
+      this.ptr.y += (this.ptr.ty - this.ptr.y) * 0.05;
+      group.rotation.y += (this.ptr.x * 0.22 - group.rotation.y) * 0.06;
+      group.rotation.x += (this.ptr.y * 0.10 - group.rotation.x) * 0.06;
+      group.position.y = Math.sin(t * 0.7) * 0.025;
+      renderer.render(scene, camera);
+    };
+    animate();
+  }
+
+  updateCam(p) {
+    const cam = window.__vizCam || this.camera;
+    if (!cam) return;
+    const THREE = window.THREE;
+    const az0 = this.azStart != null ? this.azStart : 0.42;
+    const azR = this.azRange != null ? this.azRange : Math.PI * 1.72;
+    const az = az0 + p * azR;
+    const phi = THREE.MathUtils.lerp(1.34, 1.14, p);
+    const r = THREE.MathUtils.lerp(6.4, 5.5, Math.sin(p * Math.PI));
+    cam.position.set(
+      r * Math.sin(phi) * Math.sin(az),
+      r * Math.cos(phi),
+      r * Math.sin(phi) * Math.cos(az)
+    );
+    cam.lookAt(0, 0.05, 0);
+    const el = document.getElementById('azreadout');
+    if (el) {
+      let deg = Math.round((az * 180 / Math.PI) % 360);
+      if (deg < 0) deg += 360;
+      el.textContent = String(deg).padStart(3, '0');
+    }
+  }
+
+  morphTo(i) {
+    const geo = window.__vizGeo || this.geo;
+    const targets = window.__vizTargets || this.targets;
+    if (!geo || !targets) return;
+    const gsap = window.gsap;
+    const target = targets[i];
+    const arr = geo.attributes.position.array;
+    const start = Float32Array.from(arr);
+    if (this._mp) gsap.killTweensOf(this._mp);
+    this._mp = { t: 0 };
+    gsap.to(this._mp, {
+      t: 1, duration: 1.15, ease: 'power3.inOut',
+      onUpdate: () => {
+        const t = this._mp.t;
+        for (let k = 0; k < arr.length; k++) arr[k] = start[k] + (target[k] - start[k]) * t;
+        geo.attributes.position.needsUpdate = true;
+      },
+    });
+  }
+}
+</script>
+</body>
+</html>

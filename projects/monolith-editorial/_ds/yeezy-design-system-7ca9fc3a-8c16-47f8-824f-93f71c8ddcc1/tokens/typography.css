@@ -1,0 +1,37 @@
+/* ============================================================
+   YEEZY — Typography
+   One typeface everywhere. Hierarchy through position & spacing,
+   never through weight or size variety. Mostly UPPERCASE caps.
+   ============================================================ */
+
+:root {
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font: var(--font-mono);
+
+  /* Weights — kept deliberately flat */
+  --fw-light: 300; /* @kind font */
+  --fw-regular: 400; /* @kind font */
+  --fw-medium: 500; /* @kind font */
+
+  /* Size scale — small, tight, low-contrast */
+  --fs-micro: 10px;   /* fine print, legal */
+  --fs-xs: 11px;      /* nav, labels, metadata */
+  --fs-sm: 12px;      /* default UI text */
+  --fs-md: 14px;      /* product code, emphasis */
+  --fs-lg: 16px;      /* rare — largest UI text */
+  --fs-xl: 22px;      /* product page price / hero number */
+
+  /* Line height */
+  --lh-tight: 1.1; /* @kind font */
+  --lh-base: 1.4; /* @kind font */
+  --lh-loose: 1.7; /* @kind font */
+
+  /* Letter spacing — the signature wide-caps tracking */
+  --ls-tight: 0; /* @kind font */
+  --ls-base: 0.02em; /* @kind font */
+  --ls-wide: 0.08em; /* @kind font */
+  --ls-wider: 0.16em; /* @kind font */
+
+  /* Casing */
+  --case: uppercase; /* @kind other */
+}

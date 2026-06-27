@@ -1,0 +1,42 @@
+/* ============================================================
+   YEEZY — Color
+   A strict monochrome system. Black on white, nothing else.
+   Color enters ONLY through product imagery, never through UI.
+   ============================================================ */
+
+:root {
+  /* --- Base scale (the only two real colors) --- */
+  --black: #000000;
+  --white: #ffffff;
+
+  /* --- Greys: used sparingly for disabled / hairline states only --- */
+  --grey-90: #111111;
+  --grey-70: #3a3a3a;
+  --grey-50: #767676;
+  --grey-30: #b3b3b3;
+  --grey-15: #d8d8d8;
+  --grey-08: #ededed;
+
+  /* --- Semantic aliases --- */
+  --bg: var(--white);
+  --fg: var(--black);
+
+  --text-primary: var(--black);
+  --text-muted: var(--grey-50);
+  --text-disabled: var(--grey-30);
+  --text-inverse: var(--white);
+
+  --surface: var(--white);
+  --surface-inverse: var(--black);
+
+  --line: var(--black);          /* primary hairline */
+  --line-faint: var(--grey-15);  /* secondary hairline */
+
+  /* CTA — the one bold block on any page */
+  --cta-bg: var(--black);
+  --cta-fg: var(--white);
+  --cta-bg-hover: var(--grey-90);
+
+  /* States: status is shown as plain text, not color. */
+  --focus-ring: var(--black);
+}

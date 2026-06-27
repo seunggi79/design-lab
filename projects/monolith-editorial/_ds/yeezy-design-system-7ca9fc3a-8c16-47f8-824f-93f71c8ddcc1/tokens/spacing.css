@@ -1,0 +1,35 @@
+/* ============================================================
+   YEEZY — Spacing, Radius, Shadow, Border
+   8px base unit, generous multiples. Hard edges. No shadows.
+   ============================================================ */
+
+:root {
+  --space-unit: 8px;
+
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+  --space-9: 128px;
+
+  /* Hard edges — no rounding anywhere */
+  --radius: 0;
+
+  /* No shadows, no gradients. Depth comes from whitespace. */
+  --shadow: none;
+
+  /* Borders — thin, monoline, black */
+  --border-width: 1px;
+  --border: var(--border-width) solid var(--black);
+  --border-faint: var(--border-width) solid var(--grey-15);
+
+  /* Motion — minimal, no bounce. Opacity & subtle position only. */
+  --ease: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --dur-fast: 120ms; /* @kind other */
+  --dur-base: 200ms; /* @kind other */
+}

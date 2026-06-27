@@ -1,0 +1,270 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/core/**",
+              "ui_kits/storefront/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:IBM Plex Mono))/i]",
+        "message": "Font not provided by the design system. Available: IBM Plex Mono."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|size|block|disabled|type|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: children, variant, size, block, disabled, type, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:solid|outline|ghost)$/]",
+        "message": "<Button> variant must be one of 'solid' | 'outline' | 'ghost'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='type'] > Literal[value!=/^(?:button|submit|reset)$/]",
+        "message": "<Button> type must be one of 'button' | 'submit' | 'reset'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Checkbox'] > JSXAttribute > JSXIdentifier[name!=/^(?:checked|onChange|children|style|key|ref|className|style|children)$/]",
+        "message": "<Checkbox> doesn't accept that prop. Declared props: checked, onChange, children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='DotPagination'] > JSXAttribute > JSXIdentifier[name!=/^(?:count|index|onChange|style|key|ref|className|style|children)$/]",
+        "message": "<DotPagination> doesn't accept that prop. Declared props: count, index, onChange, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconButton'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|label|size|active|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<IconButton> doesn't accept that prop. Declared props: children, label, size, active, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|invalid|style|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: variant, invalid, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:box|line)$/]",
+        "message": "<Input> variant must be one of 'box' | 'line'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Modal'] > JSXAttribute > JSXIdentifier[name!=/^(?:open|onClose|children|width|style|key|ref|className|style|children)$/]",
+        "message": "<Modal> doesn't accept that prop. Declared props: open, onClose, children, width, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavBar'] > JSXAttribute > JSXIdentifier[name!=/^(?:items|active|onSelect|onToggleDensity|cartCount|onCart|style|key|ref|className|style|children)$/]",
+        "message": "<NavBar> doesn't accept that prop. Declared props: items, active, onSelect, onToggleDensity, cartCount, onCart, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductTile'] > JSXAttribute > JSXIdentifier[name!=/^(?:image|code|price|status|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<ProductTile> doesn't accept that prop. Declared props: image, code, price, status, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SizeOption'] > JSXAttribute > JSXIdentifier[name!=/^(?:eu|us|available|key|ref|className|style|children)$/]",
+        "message": "<SizeOption> doesn't accept that prop. Declared props: eu, us, available."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatusLabel'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|muted|blink|style|key|ref|className|style|children)$/]",
+        "message": "<StatusLabel> doesn't accept that prop. Declared props: children, muted, blink, style."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Button": {
+        "replaces": []
+      },
+      "Checkbox": {
+        "replaces": []
+      },
+      "DotPagination": {
+        "replaces": []
+      },
+      "IconButton": {
+        "replaces": []
+      },
+      "Input": {
+        "replaces": []
+      },
+      "Modal": {
+        "replaces": []
+      },
+      "NavBar": {
+        "replaces": []
+      },
+      "ProductTile": {
+        "replaces": []
+      },
+      "SizeOption": {
+        "replaces": []
+      },
+      "StatusLabel": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--bg",
+      "--black",
+      "--border",
+      "--border-faint",
+      "--border-width",
+      "--case",
+      "--cta-bg",
+      "--cta-bg-hover",
+      "--cta-fg",
+      "--dur-base",
+      "--dur-fast",
+      "--ease",
+      "--fg",
+      "--focus-ring",
+      "--font",
+      "--font-mono",
+      "--fs-lg",
+      "--fs-md",
+      "--fs-micro",
+      "--fs-sm",
+      "--fs-xl",
+      "--fs-xs",
+      "--fw-light",
+      "--fw-medium",
+      "--fw-regular",
+      "--grey-08",
+      "--grey-15",
+      "--grey-30",
+      "--grey-50",
+      "--grey-70",
+      "--grey-90",
+      "--lh-base",
+      "--lh-loose",
+      "--lh-tight",
+      "--line",
+      "--line-faint",
+      "--ls-base",
+      "--ls-tight",
+      "--ls-wide",
+      "--ls-wider",
+      "--radius",
+      "--shadow",
+      "--space-0",
+      "--space-1",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--space-9",
+      "--space-unit",
+      "--surface",
+      "--surface-inverse",
+      "--text-disabled",
+      "--text-inverse",
+      "--text-muted",
+      "--text-primary",
+      "--white"
+    ],
+    "tokenKinds": {
+      "--black": "color",
+      "--white": "color",
+      "--grey-90": "color",
+      "--grey-70": "color",
+      "--grey-50": "color",
+      "--grey-30": "color",
+      "--grey-15": "color",
+      "--grey-08": "color",
+      "--bg": "color",
+      "--fg": "color",
+      "--text-primary": "font",
+      "--text-muted": "font",
+      "--text-disabled": "font",
+      "--text-inverse": "font",
+      "--surface": "color",
+      "--surface-inverse": "color",
+      "--line": "color",
+      "--line-faint": "color",
+      "--cta-bg": "color",
+      "--cta-fg": "color",
+      "--cta-bg-hover": "color",
+      "--focus-ring": "color",
+      "--font-mono": "font",
+      "--font": "font",
+      "--fw-light": "font",
+      "--fw-regular": "font",
+      "--fw-medium": "font",
+      "--fs-micro": "spacing",
+      "--fs-xs": "spacing",
+      "--fs-sm": "spacing",
+      "--fs-md": "spacing",
+      "--fs-lg": "spacing",
+      "--fs-xl": "spacing",
+      "--lh-tight": "font",
+      "--lh-base": "font",
+      "--lh-loose": "font",
+      "--ls-tight": "font",
+      "--ls-base": "font",
+      "--ls-wide": "font",
+      "--ls-wider": "font",
+      "--case": "other",
+      "--space-unit": "spacing",
+      "--space-0": "spacing",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--space-9": "spacing",
+      "--radius": "radius",
+      "--shadow": "shadow",
+      "--border-width": "spacing",
+      "--border": "color",
+      "--border-faint": "color",
+      "--ease": "other",
+      "--dur-fast": "other",
+      "--dur-base": "other"
+    },
+    "fontFamilies": [
+      "IBM Plex Mono"
+    ]
+  }
+}
