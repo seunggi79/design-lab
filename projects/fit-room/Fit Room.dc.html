@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/styles.css">
+  <script src="_ds/yeezy-design-system-7ca9fc3a-8c16-47f8-824f-93f71c8ddcc1/_ds_bundle.js"></script>
+  <style>
+    html,body{margin:0;background:#ffffff;}
+    *{box-sizing:border-box;}
+    .yzy-grab{cursor:grab;}
+    .yzy-grab:active{cursor:grabbing;}
+    .row-hit:hover .row-code{opacity:.45;}
+    [data-scene] canvas{display:block;width:100%;height:100%;}
+
+    .fit-root{height:100vh;height:100dvh;overflow:hidden;}
+    .fit-body{display:grid;grid-template-columns:1fr 384px;min-height:0;flex:1;}
+    .fit-stage{border-right:1px solid #000;}
+    .fit-panel{min-height:0;}
+
+    /* narrow / split-screen: stack panel under the stage */
+    @media (max-width: 880px){
+      .fit-root{height:auto;min-height:100vh;overflow:visible;}
+      .fit-body{grid-template-columns:1fr;}
+      .fit-stage{border-right:none;border-bottom:1px solid #000;min-height:62vh;}
+      .fit-panel{max-height:none;}
+      .fit-panel .fit-scroll{overflow:visible;}
+    }
+    @media (max-width: 560px){
+      .fit-stage{min-height:54vh;}
+      .fit-pads{padding-left:16px;padding-right:16px;}
+    }
+  </style>
+</helmet>
+
+<div class="fit-root" style="background:#ffffff;font-family:var(--font-mono);color:#000;display:flex;flex-direction:column;">
+
+  <div style="border-bottom:1px solid #000;">
+    <x-import component-from-global-scope="YEEZYDesignSystem_7ca9fc.NavBar" items="{{ navItems }}" active="FIT ROOM" cart-count="{{ savedCount }}" on-cart="{{ noop }}" on-toggle-density="{{ noop }}" hint-size="100%,58px"></x-import>
+  </div>
+
+  <div class="fit-body">
+
+    <!-- STAGE -->
+    <section class="fit-stage" style="position:relative;display:flex;flex-direction:column;min-height:0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 28px 10px;">
+        <span style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#767676;">FIG. 01 — VOLUME / GLTF</span>
+        <span id="yawLabel" style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#767676;">YAW 0°</span>
+      </div>
+
+      <div data-scene class="yzy-grab" style="flex:1;width:100%;min-height:0;position:relative;touch-action:none;user-select:none;"></div>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:18px;padding:12px 0 16px;border-top:1px solid #ededed;">
+        <span style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#b3b3b3;">‹ DRAG TO ROTATE ›</span>
+        <button type="button" onClick="{{ resetRot }}" style="appearance:none;background:transparent;border:none;cursor:pointer;font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#000;padding:0;" style-hover="opacity:.45">RESET VIEW</button>
+      </div>
+    </section>
+
+    <!-- PANEL -->
+    <aside class="fit-panel" style="display:flex;flex-direction:column;min-height:0;">
+      <div style="padding:22px 24px 16px;border-bottom:1px solid #000;">
+        <div style="font-size:13px;letter-spacing:.18em;text-transform:uppercase;">DRESSING ROOM</div>
+        <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#767676;margin-top:6px;">TAP AN ITEM TO WEAR / REMOVE</div>
+      </div>
+
+      <div class="fit-scroll" style="flex:1;overflow-y:auto;">
+        <sc-for list="{{ rows }}" as="row" hint-placeholder-count="5">
+          <div class="row-hit" onClick="{{ row.toggle }}" style="display:grid;grid-template-columns:14px 1fr auto;align-items:center;gap:14px;padding:18px 24px;border-bottom:1px solid #ededed;cursor:pointer;">
+            <span style="width:12px;height:12px;border:1px solid #000;background:{{ row.dot }};"></span>
+            <div style="display:flex;flex-direction:column;gap:3px;">
+              <span class="row-code" style="font-size:13px;letter-spacing:.12em;transition:opacity .15s;opacity:{{ row.codeOpacity }};">{{ row.code }}</span>
+              <span style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#b3b3b3;">{{ row.slot }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span style="font-size:11px;letter-spacing:.08em;color:{{ row.statusColor }};">{{ row.status }}</span>
+              <span style="font-size:10px;letter-spacing:.06em;color:#767676;">{{ row.price }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="border-top:1px solid #000;padding:18px 24px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#767676;">{{ wornCount }} WORN</span>
+          <span style="font-size:14px;letter-spacing:.08em;">{{ totalLabel }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <button type="button" onClick="{{ fullLook }}" style="appearance:none;background:transparent;border:1px solid #000;cursor:pointer;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px;" style-hover="opacity:.55">FULL LOOK</button>
+          <button type="button" onClick="{{ stripAll }}" style="appearance:none;background:transparent;border:1px solid #000;cursor:pointer;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px;" style-hover="opacity:.55">REMOVE ALL</button>
+        </div>
+        <button type="button" onClick="{{ saveLook }}" style="appearance:none;background:#000;color:#fff;border:1px solid #000;cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:14px;" style-hover="background:#111">SAVE LOOK</button>
+      </div>
+
+      <div style="border-top:1px solid #000;padding:16px 24px 20px;">
+        <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#767676;margin-bottom:12px;">SAVED — {{ savedCount }}</div>
+        <sc-if value="{{ hasSaved }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <sc-for list="{{ saved }}" as="lk" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:8px;border:1px solid #000;padding:7px 10px;">
+                <button type="button" onClick="{{ lk.restore }}" style="appearance:none;background:transparent;border:none;cursor:pointer;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;padding:0;" style-hover="opacity:.45">{{ lk.label }}</button>
+                <button type="button" onClick="{{ lk.remove }}" style="appearance:none;background:transparent;border:none;cursor:pointer;font-family:var(--font-mono);font-size:11px;line-height:1;color:#767676;padding:0;" style-hover="opacity:.45">×</button>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noSaved }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#d8d8d8;">NO LOOKS SAVED</div>
+        </sc-if>
+      </div>
+    </aside>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860}}">
+class Component extends DCLogic {
+  state = {
+    worn: { SG: true, JC: true, TS: true, WP: true, SL: true },
+    saved: []
+  };
+
+  ITEMS = [
+    { id: 'SG', code: 'SG-03', slot: 'EYEWEAR', price: 300 },
+    { id: 'JC', code: 'JC-04', slot: 'OUTER',   price: 1200 },
+    { id: 'TS', code: 'TS-01', slot: 'BASE',    price: 110 },
+    { id: 'WP', code: 'WP-01', slot: 'LOWER',   price: 200 },
+    { id: 'SL', code: 'SL-03', slot: 'FOOT',    price: 400 }
+  ];
+
+  componentDidMount() {
+    try {
+      const raw = localStorage.getItem('yzy_fitroom_looks');
+      if (raw) this.setState({ saved: JSON.parse(raw) });
+    } catch (e) {}
+    this._ensureThree();
+  }
+
+  componentWillUnmount() {
+    this._alive = false;
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+    if (this._ro) this._ro.disconnect();
+    if (this._el) {
+      this._el.removeEventListener('pointerdown', this._onDown);
+    }
+    window.removeEventListener('pointermove', this._onMove);
+    window.removeEventListener('pointerup', this._onUp);
+  }
+
+  componentDidUpdate() {
+    this._syncWorn();
+  }
+
+  _ensureThree() {
+    if (window.THREE) { this._initScene(); return; }
+    if (!window.__threeLoad) {
+      window.__threeLoad = new Promise((res) => {
+        const s = document.createElement('script');
+        s.src = 'https://unpkg.com/three@0.160.0/build/three.min.js';
+        s.onload = () => res();
+        document.head.appendChild(s);
+      });
+    }
+    window.__threeLoad.then(() => { if (this._alive !== false) this._initScene(); });
+  }
+
+  _arcGeo(R, arc, h, yc, segW, segH) {
+    const THREE = window.THREE;
+    const g = new THREE.BufferGeometry();
+    const pos = [], uv = [], idx = [];
+    for (let j = 0; j <= segH; j++) {
+      const v = j / segH, y = (yc - h / 2) + v * h;
+      for (let i = 0; i <= segW; i++) {
+        const u = i / segW, th = (-arc / 2) + u * arc;
+        pos.push(R * Math.sin(th), y, R * Math.cos(th));
+        uv.push(u, 1 - v);
+      }
+    }
+    const row = segW + 1;
+    for (let j = 0; j < segH; j++) for (let i = 0; i < segW; i++) {
+      const a = j * row + i, b = a + 1, c = a + row, d = c + 1;
+      idx.push(a, c, b, b, c, d);
+    }
+    g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+    g.setIndex(idx); g.computeVertexNormals();
+    return g;
+  }
+
+  _tex(path) {
+    const THREE = window.THREE;
+    const t = new THREE.TextureLoader().load(path, () => { this._needs = true; });
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.anisotropy = 8;
+    return t;
+  }
+
+  _mannequin() {
+    const THREE = window.THREE;
+    const grp = new THREE.Group();
+    const mat = new THREE.MeshStandardMaterial({
+      color: 0xf2f2f3, transparent: true, opacity: 0.34,
+      roughness: 0.35, metalness: 0.0, depthWrite: false
+    });
+    const add = (geo, x, y, z, sz, sy) => {
+      const m = new THREE.Mesh(geo, mat);
+      m.position.set(x, y, z);
+      if (sz != null) m.scale.z = sz;
+      if (sy != null) m.scale.y = sy;
+      m.renderOrder = 0;
+      grp.add(m);
+      return m;
+    };
+    add(new THREE.SphereGeometry(0.33, 40, 28), 0, 1.42, 0, 0.92);
+    add(new THREE.CylinderGeometry(0.13, 0.15, 0.26, 24), 0, 1.08, 0, 0.85);
+    add(new THREE.CylinderGeometry(0.47, 0.33, 1.02, 40), 0, 0.46, 0, 0.66);
+    add(new THREE.CylinderGeometry(0.34, 0.30, 0.42, 32), 0, -0.18, 0, 0.74);
+    const armL = add(new THREE.CylinderGeometry(0.11, 0.092, 1.18, 22), -0.52, 0.34, 0, 0.95);
+    armL.rotation.z = 0.05;
+    const armR = add(new THREE.CylinderGeometry(0.11, 0.092, 1.18, 22), 0.52, 0.34, 0, 0.95);
+    armR.rotation.z = -0.05;
+    add(new THREE.SphereGeometry(0.10, 20, 16), -0.55, -0.30, 0, 0.9);
+    add(new THREE.SphereGeometry(0.10, 20, 16), 0.55, -0.30, 0, 0.9);
+    add(new THREE.CylinderGeometry(0.185, 0.13, 1.3, 28), -0.20, -1.02, 0, 0.8);
+    add(new THREE.CylinderGeometry(0.185, 0.13, 1.3, 28), 0.20, -1.02, 0, 0.8);
+    add(new THREE.SphereGeometry(0.16, 18, 14), -0.20, -1.66, 0.06, 0.7, 0.6);
+    add(new THREE.SphereGeometry(0.16, 18, 14), 0.20, -1.66, 0.06, 0.7, 0.6);
+    grp.renderOrder = 0;
+    return grp;
+  }
+
+  _garment(id) {
+    const THREE = window.THREE;
+    const grp = new THREE.Group();
+    grp.renderOrder = 2;
+    const leather = () => new THREE.MeshPhysicalMaterial({ color: 0x0b0b0b, roughness: 0.34, metalness: 0.1, clearcoat: 0.7, clearcoatRoughness: 0.35 });
+    const knit = () => new THREE.MeshStandardMaterial({ color: 0x161616, roughness: 0.95, metalness: 0 });
+    const nylon = () => new THREE.MeshPhysicalMaterial({ color: 0x0d0d0d, roughness: 0.4, metalness: 0.12, clearcoat: 0.4, clearcoatRoughness: 0.25 });
+    const rubber = () => new THREE.MeshStandardMaterial({ color: 0x070707, roughness: 0.55, metalness: 0.05 });
+    const add = (geo, mat, x, y, z, rz, sz) => {
+      const m = new THREE.Mesh(geo, mat);
+      m.position.set(x, y, z);
+      if (rz) m.rotation.z = rz;
+      if (sz != null) m.scale.z = sz;
+      grp.add(m);
+      return m;
+    };
+    if (id === 'TS') {
+      const mat = knit();
+      add(new THREE.CylinderGeometry(0.5, 0.4, 1.02, 40), mat, 0, 0.3, 0, 0, 0.72);
+    } else if (id === 'JC') {
+      const mat = leather();
+      add(new THREE.CylinderGeometry(0.62, 0.52, 1.32, 44), mat, 0, 0.34, 0, 0, 0.82);
+      add(new THREE.CapsuleGeometry(0.17, 0.92, 10, 18), mat, -0.56, 0.3, 0, 0.12, 0.95);
+      add(new THREE.CapsuleGeometry(0.17, 0.92, 10, 18), mat, 0.56, 0.3, 0, -0.12, 0.95);
+      add(new THREE.SphereGeometry(0.3, 28, 20), mat, 0, 0.95, -0.1, 0, 0.85);
+    } else if (id === 'WP') {
+      const mat = nylon();
+      add(new THREE.CylinderGeometry(0.35, 0.31, 0.5, 32), mat, 0, -0.2, 0, 0, 0.8);
+      add(new THREE.CapsuleGeometry(0.2, 1.02, 8, 22), mat, -0.2, -1.02, 0, 0, 0.85);
+      add(new THREE.CapsuleGeometry(0.2, 1.02, 8, 22), mat, 0.2, -1.02, 0, 0, 0.85);
+    } else if (id === 'SL') {
+      const mat = rubber();
+      [-0.2, 0.2].forEach(x => {
+        add(new THREE.CylinderGeometry(0.2, 0.19, 0.52, 26), mat, x, -1.5, 0, 0, 1);
+        add(new THREE.SphereGeometry(0.21, 20, 16), mat, x, -1.74, 0.13, 0, 0.82);
+      });
+    } else if (id === 'SG') {
+      const mat = new THREE.MeshPhysicalMaterial({ color: 0x000000, roughness: 0.12, metalness: 0.3, clearcoat: 1 });
+      add(new THREE.BoxGeometry(0.48, 0.14, 0.07), mat, 0, 1.42, 0.30, 0, 1);
+      add(new THREE.BoxGeometry(0.04, 0.07, 0.22), mat, -0.24, 1.42, 0.2, 0, 1);
+      add(new THREE.BoxGeometry(0.04, 0.07, 0.22), mat, 0.24, 1.42, 0.2, 0, 1);
+    }
+    return grp;
+  }
+
+  _initScene() {
+    const THREE = window.THREE;
+    const el = document.querySelector('[data-scene]');
+    if (!el || this._three || el.querySelector('canvas')) return;
+    this._el = el;
+    const W = el.clientWidth || 600, H = el.clientHeight || 800;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(W, H);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    el.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(30, W / H, 0.1, 100);
+    camera.position.set(0, 0.05, 7.6);
+    camera.lookAt(0, 0.0, 0);
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xcfcfcf, 0.75));
+    const key = new THREE.DirectionalLight(0xffffff, 1.15); key.position.set(2.5, 4, 5); scene.add(key);
+    const fill = new THREE.DirectionalLight(0xffffff, 0.45); fill.position.set(-4, 1, 2); scene.add(fill);
+    const rim = new THREE.DirectionalLight(0xffffff, 0.7); rim.position.set(-1, 2, -5); scene.add(rim);
+
+    const figure = new THREE.Group();
+    scene.add(figure);
+    figure.add(this._mannequin());
+
+    const mgr = new THREE.LoadingManager();
+    const tl = new THREE.TextureLoader(mgr);
+    this._texCache = {};
+    this.ITEMS.forEach(it => {
+      const t = tl.load('assets/' + it.code + '.png');
+      t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+      this._texCache[it.id] = t;
+    });
+    mgr.onLoad = () => { this._needs = true; };
+
+    this._meshes = {};
+    this.ITEMS.forEach(it => {
+      const g = this._garment(it.id);
+      this._meshes[it.id] = g;
+      figure.add(g);
+    });
+
+    this._three = { renderer, scene, camera, figure };
+    window.__fit = this;
+    this._rotY = 0; this._rotX = 0;
+    this._alive = true;
+    this._needs = true;
+    this._syncWorn();
+
+    this._onDown = (e) => {
+      this._drag = true; this._px = e.clientX; this._py = e.clientY;
+      this._sy = this._rotY; this._sx = this._rotX;
+      window.addEventListener('pointermove', this._onMove);
+      window.addEventListener('pointerup', this._onUp);
+    };
+    this._onMove = (e) => {
+      if (!this._drag) return;
+      this._rotY = Math.max(-0.95, Math.min(0.95, this._sy + (e.clientX - this._px) * 0.008));
+      this._rotX = Math.max(-0.22, Math.min(0.22, this._sx + (e.clientY - this._py) * 0.004));
+      this._needs = true;
+      this._updateYaw();
+    };
+    this._onUp = () => {
+      this._drag = false;
+      window.removeEventListener('pointermove', this._onMove);
+      window.removeEventListener('pointerup', this._onUp);
+    };
+    el.addEventListener('pointerdown', this._onDown);
+
+    this._onResize = () => {
+      const w = el.clientWidth, h = el.clientHeight;
+      if (!w || !h) return;
+      camera.aspect = w / h; camera.updateProjectionMatrix();
+      renderer.setSize(w, h); this._needs = true;
+    };
+    window.addEventListener('resize', this._onResize);
+    if (window.ResizeObserver) {
+      this._ro = new ResizeObserver(() => this._onResize());
+      this._ro.observe(el);
+    }
+
+    const loop = () => {
+      if (!this._alive) return;
+      requestAnimationFrame(loop);
+      figure.rotation.y = this._rotY;
+      figure.rotation.x = this._rotX;
+      renderer.render(scene, camera);
+    };
+    loop();
+  }
+
+  _updateYaw() {
+    const el = document.getElementById('yawLabel');
+    if (!el) return;
+    const deg = Math.round(this._rotY * 180 / Math.PI);
+    el.textContent = 'YAW ' + (deg > 0 ? '+' : '') + deg + '°';
+  }
+
+  _syncWorn() {
+    if (!this._meshes) return;
+    this.ITEMS.forEach(it => {
+      const g = this._meshes[it.id];
+      if (g) g.visible = !!this.state.worn[it.id];
+    });
+    this._needs = true;
+  }
+
+  _resetView = () => {
+    this._rotY = 0; this._rotX = 0; this._needs = true; this._updateYaw();
+  };
+
+  toggle(id) { this.setState(s => ({ worn: { ...s.worn, [id]: !s.worn[id] } })); }
+  setAll(v) { const worn = {}; this.ITEMS.forEach(it => worn[it.id] = v); this.setState({ worn }); }
+
+  persist(saved) { try { localStorage.setItem('yzy_fitroom_looks', JSON.stringify(saved)); } catch (e) {} }
+
+  saveLook = () => {
+    const ids = this.ITEMS.filter(it => this.state.worn[it.id]).map(it => it.id);
+    if (!ids.length) return;
+    const label = 'L' + String(this.state.saved.length + 1).padStart(2, '0') + ' · ' + ids.length;
+    const saved = [...this.state.saved, { id: Date.now(), label, worn: { ...this.state.worn } }];
+    this.persist(saved); this.setState({ saved });
+  };
+
+  renderVals() {
+    const { worn, saved } = this.state;
+    const wornItems = this.ITEMS.filter(it => worn[it.id]);
+    const total = wornItems.reduce((s, it) => s + it.price, 0);
+
+    const rows = this.ITEMS.map(it => ({
+      code: it.code, slot: it.slot, price: '$' + it.price,
+      status: worn[it.id] ? 'WORN' : 'REMOVED',
+      statusColor: worn[it.id] ? '#000' : '#b3b3b3',
+      codeOpacity: worn[it.id] ? 1 : 0.4,
+      dot: worn[it.id] ? '#000' : 'transparent',
+      toggle: () => this.toggle(it.id)
+    }));
+
+    const savedRows = saved.map(lk => ({
+      label: lk.label,
+      restore: () => this.setState({ worn: { ...lk.worn } }),
+      remove: () => {
+        const next = this.state.saved.filter(x => x.id !== lk.id);
+        this.persist(next); this.setState({ saved: next });
+      }
+    }));
+
+    return {
+      navItems: ['ARCHIVE', 'FIT ROOM', 'DROP'],
+      noop: () => {},
+      rows,
+      wornCount: wornItems.length,
+      totalLabel: '$' + total,
+      fullLook: () => this.setAll(true),
+      stripAll: () => this.setAll(false),
+      resetRot: this._resetView,
+      saveLook: this.saveLook,
+      saved: savedRows,
+      savedCount: saved.length,
+      hasSaved: saved.length > 0,
+      noSaved: saved.length === 0
+    };
+  }
+}
+</script>
+</body>
+</html>

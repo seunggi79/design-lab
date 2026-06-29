@@ -1,0 +1,10 @@
+/* ============================================================
+   YEEZY — Typeface
+   Brand font: "YZY Plex Mono" (IBM Plex Mono derivative).
+   SUBSTITUTION: the licensed YZY Plex Mono binary is not bundled.
+   We load IBM Plex Mono (its open-source base) from Google Fonts
+   as a near-exact analog. Replace with the real binaries when
+   available by adding @font-face rules pointing at assets/fonts/.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap");
