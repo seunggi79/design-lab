@@ -9,6 +9,28 @@ pure black UI, one monospaced typeface, and silence as luxury.
 > reference brief is the single source of truth. If you have the production code or a
 > Figma library, share it and this system can be made pixel-exact.
 
+## Fit Room project
+
+This project is a lightweight, monochrome storefront prototype built around the YEEZY
+Design System. It presents a single-page fitting experience where users can browse
+product categories, inspect garments in a simple 3D scene, toggle grid density, and
+enter a minimal inline checkout flow.
+
+### What is included
+- A browser-based UI shell in `Fit Room.html` for the main experience.
+- A supporting runtime file in `support.js` that bootstraps the interactive view.
+- A local design-system bundle under `_ds/` with tokens, styles, and component assets.
+- Placeholder visual assets in `assets/` that can be replaced with final product imagery.
+
+### How to view it
+- Open `Fit Room.html` directly in a browser for a quick preview.
+- For a more reliable local preview, serve the project folder with a simple static server.
+
+### Notes
+- The experience is intentionally minimal and deadpan, following the YEEZY aesthetic.
+- The project is a concept prototype, so typography, product images, and interaction details
+  can be refined further for production use.
+
 ---
 
 ## Index / Manifest
